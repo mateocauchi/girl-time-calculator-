@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Time Subtractor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Random Time Subtractor</h1>
+
+  <label for="timeInput">Enter time:</label>
+  <input type="time" id="timeInput">
+  <br>
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const input = document.getElementById('timeInput').value;
+      if (!input) {
+        alert("Please enter a time.");
+        return;
+      }
+
+      const [hours, minutes] = input.split(":").map(Number);
+      const inputDate = new Date();
+      inputDate.setHours(hours, minutes, 0, 0);
+
+      const randomMinutes = Math.floor(Math.random() * (45 - 30 + 1)) + 30;
+      inputDate.setMinutes(inputDate.getMinutes() - randomMinutes);
+
+      const resultHours = inputDate.getHours().toString().padStart(2, '0');
+      const resultMinutes = inputDate.getMinutes().toString().padStart(2, '0');
+
+      document.getElementById('result').innerText = `Result: ${resultHours}:${resultMinutes} (−${randomMinutes} mins)`;
+    }
+  </script>
+
+</body>
+</html>
